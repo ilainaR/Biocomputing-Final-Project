@@ -33,14 +33,13 @@ compileData <- function(directory_path, remove_NAs = TRUE, warn_NAs = TRUE) {
 summarizeData <- function(compiled_data) {
   summary_data <- data.frame(
     Screens = nrow(compiled_data),
-    PercentInfected = mean(compiled_data$Infected) * 100,
-    PercentMale = mean(compiled_data$Gender == "Male") * 100,
-    PercentFemale = mean(compiled_data$Gender == "Female") * 100
+    PercentMale = mean(compiled_data$gender == "male") * 100,
+    PercentFemale = mean(compiled_data$gender == "female") * 100
   )
   
-  age_distribution <- table(cut(compiled_data$Age, breaks = seq(0, max(compiled_data$Age)+10, by = 10)))
+  age_distribution <- table(cut(compiled_data$age, breaks = seq(0, max(compiled_data$age)+10, by = 10)))
   age_distribution <- as.data.frame(age_distribution)
-  colnames(age_distribution) <- c("AgeRange", "Count")
+  colnames(age_distribution) <- c("ageRange", "count")
   
-  return(list(Summary = summary_data, AgeDistribution = age_distribution))
+  return(list(Summary = summary_data, agedistribution = age_distribution))
 }
